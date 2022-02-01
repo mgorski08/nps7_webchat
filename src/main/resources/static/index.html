@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>WebSockets WebChat</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div id="chat">
+            <div id="roomSelectorBox" class="box">
+                <label>Nick: <input type="text" id="nickInput"/></label>
+                <label>Room:
+                    <select id="roomSelect" onchange="handleRoomSelect()" onclick="fetchRooms()">
+                        <option value="1">Enter manually</option>
+                        <optgroup label="Rooms" id="roomGroup"></optgroup>
+                    </select>
+                    <input type="text" id="roomInput"/>
+                </label>
+                <button onclick="join()">Join room</button>
+            </div>
+            <div id="userBox" class="box hidden">
+                <button onclick="leave()">Leave room</button>
+                <p class="header">Room participants</p>
+                <ul id="onlineList"></ul>
+            </div>
+            <div id="chatBox" class="box hidden">
+                <div id="chatWrapper">
+                    <div id="messages"></div>
+                </div>
+                <input type="text" onkeyup="keyUpInput(event)" placeholder="Type your message here" id="messageInput">
+                <button onclick="sendToGroupChat()">Send</button>
+            </div>
+        </div>
+    </body>
+</html>

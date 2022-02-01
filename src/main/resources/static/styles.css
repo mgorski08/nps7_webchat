@@ -1,0 +1,70 @@
+p {
+    font-family: sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+#chat {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.box {
+    border: 2px solid #111162;
+}
+
+#chatBox {
+    order: 1;
+}
+
+#userBox {
+    order: 2;
+    height: 400px;
+}
+
+#userBox .header {
+    text-align: center;
+}
+
+#chatWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 300px;
+    overflow: auto;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message .nick {
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.message .text {
+    color: white;
+    background: #2828bd;
+    display: inline-block;
+    border: 2px solid #111162;
+    border-radius: 1em;
+    margin: 2px 5px 5px;
+    align-self: start;
+    padding:7px;
+}
+
+.own {
+    align-self: end;
+}
+
+.own .text {
+    background: #111162;
+}
