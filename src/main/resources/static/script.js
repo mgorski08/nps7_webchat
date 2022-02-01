@@ -1,4 +1,4 @@
-let ws = new WebSocket("ws://localhost:8080/chat")
+let ws = new WebSocket("wss://nps7webchat.herokuapp.com/chat")
 ws.onmessage = (e) => handleResponse(e.data)
 document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById("nickInput").value = "user" + Math.floor(Math.random() * 100)
