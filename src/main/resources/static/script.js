@@ -36,12 +36,10 @@ function handleResponse(response) {
 }
 
 function handleMessage(message) {
-    let messages = document.getElementById("messages")
     messages.appendChild(createMessageElement(message.senderNick, message.text))
 }
 
 function handleRoomResponse(rooms) {
-    let roomGroup = document.getElementById("roomGroup")
     roomGroup.replaceChildren()
     rooms.forEach(room => {
         let roomOption = document.createElement("option")
@@ -50,27 +48,26 @@ function handleRoomResponse(rooms) {
     })
 }
 
-function handleChatResponse(messages) {
-    let messagesElement = document.getElementById("messages")
-    messagesElement.replaceChildren()
-    messages.forEach(message => {
-        messagesElement.appendChild(createMessageElement(message.senderNick, message.text))
+function handleChatResponse(m) {
+    messages.replaceChildren()
+    m.forEach(message => {
+        messages.appendChild(createMessageElement(message.senderNick, message.text))
     })
 }
 
 function handleParticipantResponse(participants) {
-    let onlineList = document.getElementById("onlineList")
     onlineList.replaceChildren()
     participants.forEach(p => {
         let participant = document.createElement("li")
         participant.innerText = p
+        if (p === nickInput.value) {
+            participant.classList.add("me")
+        }
         onlineList.appendChild(participant)
     })
 }
 
 function handleRoomSelect(e) {
-    let roomSelect = document.getElementById("roomSelect")
-    let roomInput = document.getElementById("roomInput")
     if (roomSelect.value === "1") {
         roomInput.disabled = false
     } else {
@@ -80,8 +77,8 @@ function handleRoomSelect(e) {
 }
 
 function join() {
-    let nickInput = document.getElementById("nickInput")
-    let roomInput = document.getElementById("roomInput")
+    nickSpan.innerText = nickInput.value
+    roomSpan.innerText = roomInput.value
     ws.send(JSON.stringify({
         operation: "join",
         argument1: nickInput.value,
@@ -102,13 +99,13 @@ function leave() {
 }
 
 function sendToGroupChat() {
-    let messageInput = document.getElementById("messageInput")
     ws.send(JSON.stringify({
         operation: "message",
         argument1: messageInput.value,
         argument2: ""
     }))
     messageInput.value = ""
+    messageInput.focus()
 }
 
 function keyUpInput(event) {
@@ -142,7 +139,6 @@ function fetchParticipants() {
 }
 
 function createMessageElement(sender, text) {
-    let nickInput = document.getElementById("nickInput")
     let message = document.createElement("div")
     message.classList.add("message")
     let textElement = document.createElement("p")
