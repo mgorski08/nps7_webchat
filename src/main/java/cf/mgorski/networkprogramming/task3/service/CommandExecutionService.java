@@ -44,6 +44,9 @@ public class CommandExecutionService {
             case Operation.GET_PARTICIPANTS:
                 handleGetParticipants(clientCommand, webSocketSession);
                 break;
+            case Operation.WRITING:
+                handleWriting(clientCommand, webSocketSession);
+                break;
         }
     }
 
@@ -90,6 +93,11 @@ public class CommandExecutionService {
         Participant sender = sessionManager.getParticipantBySession(webSocketSession).get();
         Set<Participant> participants = sessionManager.getParticipantsByRoomName(sender.getRoom().getName());
         responseService.sendResponse(webSocketSession, new ParticipantResponse(participants));
+    }
+
+    public void handleWriting(ClientCommand clientCommand, WebSocketSession webSocketSession) throws IOException {
+        Participant sender = sessionManager.getParticipantBySession(webSocketSession).get();
+        responseService.sendResponseToRoom(sender.getRoom().getName(), new WritingResponse(sender.getNick()));
     }
 
 }

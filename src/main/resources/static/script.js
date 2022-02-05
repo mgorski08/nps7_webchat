@@ -1,4 +1,5 @@
 let ws = new WebSocket("wss://nps7webchat.herokuapp.com/chat")
+let timeouts = {}
 ws.onmessage = (e) => handleResponse(e.data)
 document.addEventListener('DOMContentLoaded', (e) => {
     document.getElementById("nickInput").value = "user" + Math.floor(Math.random() * 100)
@@ -31,6 +32,9 @@ function handleResponse(response) {
             break;
         case "participants":
             handleParticipantResponse(responseData.participants)
+            break;
+        case "writing":
+            handleWritingResponse(responseData.participant)
             break;
     }
 }
@@ -65,6 +69,24 @@ function handleParticipantResponse(participants) {
         }
         onlineList.appendChild(participant)
     })
+}
+
+function getUserLi(p) {
+    for (child of onlineList.children) {
+        if (child.innerText === p) return child
+    }
+}
+
+function handleWritingResponse(participant) {
+    let liElement = getUserLi(participant)
+    if (!liElement) return
+    if (timeouts[participant]) {
+        clearTimeout(timeouts[participant])
+    }
+    liElement.classList.add("writing")
+    timeouts[participant] = setTimeout(() => {
+        liElement.classList.remove("writing")
+    }, 3000)
 }
 
 function handleRoomSelect(e) {
@@ -133,6 +155,14 @@ function fetchChat() {
 function fetchParticipants() {
     ws.send(JSON.stringify({
         operation: "get_participants",
+        argument1: "",
+        argument2: ""
+    }))
+}
+
+function messageWriting() {
+    ws.send(JSON.stringify({
+        operation: "writing",
         argument1: "",
         argument2: ""
     }))

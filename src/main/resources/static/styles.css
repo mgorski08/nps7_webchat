@@ -91,6 +91,20 @@ body {
     color: #111162;
 }
 
+#onlineList li.writing {
+    color: #ff6000;
+    animation-name: shake;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {margin-left: 0;}
+    25% {margin-left: 10px;}
+    50% {margin-left: 0;}
+    100% {margin-left: 0;}
+}
+
 #chatWrapper {
     flex: 1;
     display: flex;

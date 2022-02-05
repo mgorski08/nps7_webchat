@@ -33,7 +33,7 @@
                     <div id="messages"></div>
                 </div>
                 <div id="messageInputBox">
-                    <input type="text" onkeyup="keyUpInput(event)" placeholder="Type your message here"
+                    <input type="text" onkeyup="keyUpInput(event)" oninput="messageWriting()" placeholder="Type your message here"
                             id="messageInput">
                     <button onclick="sendToGroupChat()">Send</button>
                 </div>

@@ -7,4 +7,5 @@ public class Operation {
     public static final String LIST_ROOMS = "list_rooms";
     public static final String GET_CHAT = "get_chat";
     public static final String GET_PARTICIPANTS = "get_participants";
+    public static final String WRITING = "writing";
 }
